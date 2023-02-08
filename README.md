@@ -62,6 +62,7 @@ Options:
   -d, --delay <livereolad delay>       delay in ms before triggering live reload, default 0
   -x, --proxy <upstreamurl>            when file not found, proxy the request to another server
   --proxypath <proxypath>              only send to proxy when path starts with this pattern, default is "/", repeatable
+  --secure <true|false>                allow self-signed certs for proxy upstream, default true
   --no-reload                          disable live-reloading
   -q, --quiet                          quiet mode with minimum log message
   -o, --open [path]                    open browser automatically, optional path

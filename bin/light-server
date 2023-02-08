@@ -13,8 +13,8 @@ var LightServer = require('../index')
 var rc = require('../rc')
 var program = require('commander')
 
-function main (argv) {
-  function collect (val, memo) {
+function main(argv) {
+  function collect(val, memo) {
     memo.push(val)
     return memo
   }
@@ -30,6 +30,7 @@ function main (argv) {
     .option('-d, --delay <livereolad delay>', 'delay in ms before triggering live reload, default 0', parseInt)
     .option('-x, --proxy <upstreamurl>', 'when file not found, proxy the request to another server')
     .option('--proxypath <proxypath>', 'only send to proxy when path starts with this pattern, default is "/", repeatable', collect, [])
+    .option('--secure <true|false>', 'allow self-signed certs for proxy upstream, default true')
     .option('--no-reload', 'disable live-reloading')
     .option('-q, --quiet', 'quiet mode with minimum log message')
     .option('-o, --open [path]', 'open browser automatically, optional path')
@@ -90,7 +91,8 @@ function main (argv) {
     servePrefix: program.servePrefix,
     watchexps: program.watchexp.length ? program.watchexp : undefined,
     proxy: program.proxy,
-    proxypaths: program.proxypath.length ? program.proxypath: undefined,
+    proxypaths: program.proxypath.length ? program.proxypath : undefined,
+    secure: program.secure ? Boolean(program.secure) : true,
     noReload: program.reload ? undefined : true,
     quiet: program.quiet,
     open: program.open,

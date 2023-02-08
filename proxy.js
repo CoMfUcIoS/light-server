@@ -3,11 +3,11 @@
 var httpProxy = require('http-proxy')
 var _this = this
 
-function Proxy (target, paths) {
+function Proxy(target, paths, secure) {
   if (!(this instanceof Proxy)) return new Proxy(target, paths)
   _this.proxyTarget = target
   _this.proxyPaths = paths
-  _this.proxy = httpProxy.createProxyServer({ changeOrigin: true })
+  _this.proxy = httpProxy.createProxyServer({ secure: !!secure, changeOrigin: true })
 }
 
 Proxy.prototype.middleFunc = function (req, res, next) {

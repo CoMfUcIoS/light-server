@@ -17,7 +17,7 @@ var LR = require('./livereload')
 var spawn = require('child_process').spawn
 var os = require('os').type()
 
-function LightServer (options) {
+function LightServer(options) {
   if (!(this instanceof LightServer)) return new LightServer(options)
   this.options = options
   if (os === 'Windows_NT') {
@@ -83,7 +83,7 @@ LightServer.prototype.start = function () {
   if (_this.options.serve) {
     if (_this.options.proxy) {
       var proxy = require('./proxy')
-      app.use(proxy(_this.options.proxy, _this.options.proxypaths).middleFunc)
+      app.use(proxy(_this.options.proxy, _this.options.proxypaths, _this.options.secure).middleFunc)
     }
 
     if (_this.options.historyindex) {
@@ -96,7 +96,8 @@ LightServer.prototype.start = function () {
       serveStatic(_this.options.serve, {
         extensions: ['html'],
         redirect: _this.options.serveRedirect === true,
-        fallthrough: true })
+        fallthrough: true
+      })
     )
     app.use(
       _this.options.servePrefix || '',
@@ -188,9 +189,9 @@ LightServer.prototype.watch = function () {
     } else {
       console.log(
         '## WARNING: Ignoring watch expression "' +
-          we +
-          '", because ' +
-          'it doesn\'t specify a command and live-reloading is disabled.'
+        we +
+        '", because ' +
+        'it doesn\'t specify a command and live-reloading is disabled.'
       )
     }
   })
